@@ -1,102 +1,71 @@
-import { useState, useEffect } from "react";
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Landing Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-export default function DiplomasLalo() {
-  const [slide, setSlide] = useState(0);
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,sans-serif;}
+    body{background:#fff;color:#111;}
 
-  const images = [
-    "/img1.jpg",
-    "/img2.jpg",
-    "/img3.jpg",
-    "/img4.jpg",
-    "/img5.jpg",
-    "/img6.jpg",
-    "/img7.jpg",
-    "/img8.jpg"
-  ];
+    /* TOPBAR */
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:12px 24px;
+      border-bottom:1px solid #eee;
+      position:sticky;
+      top:0;
+      background:#fff;
+      z-index:10;
+    }
 
-  const slides = [
-    [images[0], images[1]],
-    [images[2], images[3]],
-    [images[4], images[5]],
-    [images[6], images[7]]
-  ];
+    .left-header{
+      display:flex;
+      align-items:center;
+      gap:15px;
+    }
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setSlide((prev) => (prev + 1) % slides.length);
-    }, 3500);
-    return () => clearInterval(interval);
-  }, []);
+    .logo{
+      width:80px;
+      height:auto;
+    }
 
-  const prevSlide = () => {
-    setSlide((prev) => (prev - 1 + slides.length) % slides.length);
-  };
+    .brand-text{
+      display:flex;
+      flex-direction:column;
+      line-height:1.2;
+    }
 
-  const nextSlide = () => {
-    setSlide((prev) => (prev + 1) % slides.length);
-  };
+    .brand-text h1{
+      font-weight:800;
+      font-size:20px;
+    }
 
-  const navBtn =
-    "absolute top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/80 backdrop-blur-md border shadow-lg flex items-center justify-center hover:scale-110 transition";
+    .brand-text span{
+      font-size:13px;
+      color:#666;
+    }
 
-  return (
-    <div className="min-h-screen bg-white text-gray-900 font-sans">
+    /* MENU */
+    .menu{
+      font-weight:700;
+      font-size:15px;
+      cursor:pointer;
+    }
 
-      {/* HERO */}
-      <div className="flex items-center gap-8 px-10 py-16">
-        <img src="/logo.png" className="w-56" />
-        <div>
-          <h1 className="text-5xl font-bold">Luis Felipe Cuya Ruiz</h1>
-          <p className="text-gray-500 flex gap-3 mt-2">
-            <span>29 años</span>
-            <span className="w-px bg-gray-300"></span>
-            <span>Administración de empresas</span>
-          </p>
-        </div>
-      </div>
+    /* RIGHT HEADER */
+    .right-header{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
 
-      {/* CARRUSEL */}
-      <div className="w-full flex justify-center py-10 relative">
-
-        {/* IZQUIERDA */}
-        <button onClick={prevSlide} className={`${navBtn} left-5`}>
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#111" strokeWidth="2">
-            <path d="M15 18l-6-6 6-6" />
-          </svg>
-        </button>
-
-        <div className="overflow-hidden w-[95%] max-w-6xl">
-          <div className="flex transition-transform duration-700" style={{ transform: `translateX(-${slide * 100}%)` }}>
-            {slides.map((pair, i) => (
-              <div key={i} className="min-w-full flex gap-3 justify-center">
-                {pair.map((img, idx) => (
-                  <img key={idx} src={img} className="w-[48%] h-[380px] object-cover rounded-xl shadow-md" />
-                ))}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* DERECHA */}
-        <button onClick={nextSlide} className={`${navBtn} right-5`}>
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#111" strokeWidth="2">
-            <path d="M9 18l6-6-6-6" />
-          </svg>
-        </button>
-      </div>
-
-      {/* BOTÓN WHATSAPP (AZUL SUAVE) */}
-      <div className="flex justify-center pb-16">
-        <a
-          href="https://wa.me/51940265054?text=Me%20gustar%C3%ADa%20saber%20m%C3%A1s%20de%20ti..."
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-blue-300 hover:bg-blue-400 text-white px-8 py-4 rounded-full shadow-lg font-semibold flex items-center gap-2 transition"
-        >
-          📲 Contacta conmigo
-        </a>
-      </div>
-
-    </div>
-  );
-}
+    .btn-top{
+      font-weight:700;
+      cursor:pointer;
+      padding:6px 10px;
+      border-radius:8px;
+      transition:
