@@ -1,95 +1,118 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-export default function PromoStorePreview() {
-  const [loading, setLoading] = useState(true);
+export default function DiplomasLaloPreview() {
+  const [showSplash, setShowSplash] = useState(true);
+  const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
+    const fadeTimer = setTimeout(() => {
+      setFadeOut(true);
     }, 2500);
 
-    if (loading) {
-    return (
-      <div className="h-screen w-full bg-white flex items-center justify-center">
-        <div className="flex flex-col items-center animate-pulse">
+    const removeTimer = setTimeout(() => {
+      setShowSplash(false);
+    }, 5500);
+
+    return () => {
+      clearTimeout(fadeTimer);
+      clearTimeout(removeTimer);
+    };
+  }, []);
+  return (
+    <div className="min-h-screen bg-gray-100 overflow-x-hidden font-sans">
+      {/* Pantalla Inicial */}
+      {showSplash && (
+        <div className={`fixed inset-0 bg-white flex items-center justify-center flex-col z-50 transition-opacity duration-[3000ms] ${fadeOut ? 'opacity-0' : 'opacity-100'}`}>
           <img
             src="https://scontent.flim38-1.fna.fbcdn.net/v/t39.30808-6/305291497_458834266287777_8277300411850734890_n.jpg"
             alt="Diplomas Lalo"
-            className="w-72 object-contain shadow-2xl"
+            className="w-80 max-w-[85%] object-contain"
           />
-
-          <h1 className="mt-6 text-4xl font-bold text-violet-700">
-            Diplomas Lalo
-          </h1>
         </div>
-      </div>
-    );
-  }
+      )}
 
-  return () => clearTimeout(timer);
-  }, []);
-  const products = [
-    {
-      name: 'Cuadro Promocional',
-      price: 'S/ 80',
-      image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1200&auto=format&fit=crop'
-    },
-    {
-      name: 'Taza Personalizada',
-      price: 'S/ 35',
-      image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop'
-    },
-    {
-      name: 'Diploma Premium',
-      price: 'S/ 50',
-      image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=1200&auto=format&fit=crop'
-    }
-  ];
-
-  return (
-    <div className="min-h-screen bg-gray-100 font-sans">
-      <header className="bg-violet-600 text-white py-10 shadow-lg">
-        <div className="max-w-6xl mx-auto px-6 text-center">
-          <h1 className="text-5xl font-bold mb-3">🎓 Recuerdos de Promoción</h1>
-          <p className="text-lg opacity-90">
-            Compra recuerdos personalizados para promociones escolares y universitarias
-          </p>
-        </div>
+      {/* Header */}
+      <header className="bg-violet-600 text-white py-10 text-center shadow-lg">
+        <h1 className="text-5xl font-bold mb-3">🎓 Diplomas Lalo</h1>
+        <p className="text-lg opacity-90">
+          Recuerdos de promoción personalizados
+        </p>
       </header>
 
-      <section className="max-w-6xl mx-auto px-6 py-12">
+      {/* Productos */}
+      <div className="w-[90%] mx-auto py-14">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {products.map((product, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-3xl overflow-hidden shadow-xl hover:scale-105 transition duration-300"
-            >
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-full h-72 object-cover"
-              />
+          <div className="bg-white rounded-3xl overflow-hidden shadow-xl hover:-translate-y-2 transition duration-300">
+            <img
+              src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1200&auto=format&fit=crop"
+              alt="Cuadro Promocional"
+              className="w-full h-64 object-cover"
+            />
 
-              <div className="p-6">
-                <h2 className="text-2xl font-bold text-gray-800 mb-2">
-                  {product.name}
-                </h2>
+            <div className="p-6">
+              <h2 className="text-2xl font-bold text-gray-800 mb-2">
+                Cuadro Promocional
+              </h2>
 
-                <p className="text-violet-600 text-xl font-semibold mb-5">
-                  {product.price}
-                </p>
+              <p className="text-violet-600 text-2xl font-bold mb-5">
+                S/ 80
+              </p>
 
-                <button className="w-full bg-violet-600 hover:bg-violet-700 text-white py-3 rounded-2xl font-semibold text-lg transition">
-                  Realizar Pedido
-                </button>
-              </div>
+              <button className="w-full py-4 rounded-2xl bg-violet-600 hover:bg-violet-700 text-white font-semibold text-lg transition">
+                Realizar Pedido
+              </button>
             </div>
-          ))}
-        </div>
-      </section>
+          </div>
 
-      <section className="max-w-3xl mx-auto bg-white rounded-3xl shadow-xl p-8 mb-16">
-        <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">
+          <div className="bg-white rounded-3xl overflow-hidden shadow-xl hover:-translate-y-2 transition duration-300">
+            <img
+              src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop"
+              alt="Taza Personalizada"
+              className="w-full h-64 object-cover"
+            />
+
+            <div className="p-6">
+              <h2 className="text-2xl font-bold text-gray-800 mb-2">
+                Taza Personalizada
+              </h2>
+
+              <p className="text-violet-600 text-2xl font-bold mb-5">
+                S/ 35
+              </p>
+
+              <button className="w-full py-4 rounded-2xl bg-violet-600 hover:bg-violet-700 text-white font-semibold text-lg transition">
+                Realizar Pedido
+              </button>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-3xl overflow-hidden shadow-xl hover:-translate-y-2 transition duration-300">
+            <img
+              src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=1200&auto=format&fit=crop"
+              alt="Diploma Premium"
+              className="w-full h-64 object-cover"
+            />
+
+            <div className="p-6">
+              <h2 className="text-2xl font-bold text-gray-800 mb-2">
+                Diploma Premium
+              </h2>
+
+              <p className="text-violet-600 text-2xl font-bold mb-5">
+                S/ 50
+              </p>
+
+              <button className="w-full py-4 rounded-2xl bg-violet-600 hover:bg-violet-700 text-white font-semibold text-lg transition">
+                Realizar Pedido
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Formulario */}
+      <div className="w-[90%] max-w-2xl mx-auto bg-white rounded-3xl shadow-xl p-10 mb-16">
+        <h2 className="text-4xl font-bold text-center mb-8 text-gray-800">
           🧾 Formulario de Pedido
         </h2>
 
@@ -122,7 +145,12 @@ export default function PromoStorePreview() {
             Enviar Pedido 🚀
           </button>
         </div>
-      </section>
+      </div>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white text-center py-6 mt-10">
+        <p>© 2026 Diplomas Lalo - Todos los derechos reservados</p>
+      </footer>
     </div>
   );
 }
