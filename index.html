@@ -1,152 +1,247 @@
-export default function DiplomasLaloPreview() {
-  return (
-    <div className="bg-gray-100 min-h-screen overflow-x-hidden font-sans">
-      <style>{`
-        @keyframes fadeOut {
-          0% {
-            opacity: 1;
-          }
-          100% {
-            opacity: 0;
-            visibility: hidden;
-          }
-        }
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diplomas Lalo</title>
 
-        .splash-screen {
-          animation: fadeOut 3s ease forwards;
-          animation-delay: 2s;
-        }
-      `}</style>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
 
-      {/* Splash Screen */}
-      <div className="splash-screen fixed inset-0 bg-white flex items-center justify-center z-50">
-        <img
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKJLhJtFjdbHyPXrzd8DmUxYuB04algDi8cw&s"
-          alt="Diplomas Lalo"
-          className="w-44 max-w-[60%] object-contain"
-        />
+    body {
+      background: #f3f4f6;
+      overflow-x: hidden;
+    }
+
+    /* Splash Screen */
+    #splash-screen {
+      position: fixed;
+      inset: 0;
+      background: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      animation: fadeOut 3s ease forwards;
+      animation-delay: 2s;
+    }
+
+    #splash-screen img {
+      width: 180px;
+      max-width: 60%;
+      object-fit: contain;
+    }
+
+    @keyframes fadeOut {
+      0% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    header {
+      background: #6d28d9;
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    header h1 {
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 18px;
+      opacity: 0.9;
+    }
+
+    .container {
+      width: 90%;
+      margin: auto;
+      padding: 50px 0;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 25px;
+      overflow: hidden;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 25px;
+    }
+
+    .card-content h2 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      color: #1f2937;
+    }
+
+    .price {
+      font-size: 24px;
+      font-weight: bold;
+      color: #6d28d9;
+      margin-bottom: 20px;
+    }
+
+    button {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 15px;
+      background: #6d28d9;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #5b21b6;
+    }
+
+    .form-section {
+      width: 90%;
+      max-width: 700px;
+      margin: 20px auto 70px auto;
+      background: white;
+      padding: 40px;
+      border-radius: 25px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+
+    .form-section h2 {
+      text-align: center;
+      font-size: 40px;
+      margin-bottom: 30px;
+      color: #1f2937;
+    }
+
+    input {
+      width: 100%;
+      padding: 16px;
+      margin-bottom: 18px;
+      border: 1px solid #d1d5db;
+      border-radius: 15px;
+      font-size: 16px;
+    }
+
+    .send-btn {
+      background: #16a34a;
+    }
+
+    .send-btn:hover {
+      background: #15803d;
+    }
+
+    footer {
+      background: #111827;
+      color: white;
+      text-align: center;
+      padding: 25px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Splash Screen -->
+  <div id="splash-screen">
+    <img
+      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKJLhJtFjdbHyPXrzd8DmUxYuB04algDi8cw&s"
+      alt="Diplomas Lalo"
+    >
+  </div>
+
+  <!-- Header -->
+  <header>
+    <h1>🎓 Diplomas Lalo</h1>
+    <p>Recuerdos de promoción personalizados</p>
+  </header>
+
+  <!-- Productos -->
+  <div class="container">
+    <div class="products">
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1200&auto=format&fit=crop" alt="Cuadro Promocional">
+
+        <div class="card-content">
+          <h2>Cuadro Promocional</h2>
+          <p class="price">S/ 80</p>
+          <button>Realizar Pedido</button>
+        </div>
       </div>
 
-      {/* Header */}
-      <header className="bg-violet-700 text-white text-center py-10 shadow-lg">
-        <h1 className="text-5xl font-bold mb-3">🎓 Diplomas Lalo</h1>
-        <p className="text-lg opacity-90">
-          Recuerdos de promoción personalizados
-        </p>
-      </header>
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop" alt="Taza Personalizada">
 
-      {/* Productos */}
-      <section className="w-[90%] mx-auto py-14">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div className="bg-white rounded-3xl overflow-hidden shadow-xl hover:-translate-y-2 transition duration-300">
-            <img
-              src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1200&auto=format&fit=crop"
-              alt="Cuadro Promocional"
-              className="w-full h-64 object-cover"
-            />
-
-            <div className="p-6">
-              <h2 className="text-2xl font-bold text-gray-800 mb-2">
-                Cuadro Promocional
-              </h2>
-
-              <p className="text-violet-700 text-2xl font-bold mb-5">
-                S/ 80
-              </p>
-
-              <button className="w-full bg-violet-700 hover:bg-violet-800 text-white py-4 rounded-2xl font-semibold text-lg transition">
-                Realizar Pedido
-              </button>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-3xl overflow-hidden shadow-xl hover:-translate-y-2 transition duration-300">
-            <img
-              src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop"
-              alt="Taza Personalizada"
-              className="w-full h-64 object-cover"
-            />
-
-            <div className="p-6">
-              <h2 className="text-2xl font-bold text-gray-800 mb-2">
-                Taza Personalizada
-              </h2>
-
-              <p className="text-violet-700 text-2xl font-bold mb-5">
-                S/ 35
-              </p>
-
-              <button className="w-full bg-violet-700 hover:bg-violet-800 text-white py-4 rounded-2xl font-semibold text-lg transition">
-                Realizar Pedido
-              </button>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-3xl overflow-hidden shadow-xl hover:-translate-y-2 transition duration-300">
-            <img
-              src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=1200&auto=format&fit=crop"
-              alt="Diploma Premium"
-              className="w-full h-64 object-cover"
-            />
-
-            <div className="p-6">
-              <h2 className="text-2xl font-bold text-gray-800 mb-2">
-                Diploma Premium
-              </h2>
-
-              <p className="text-violet-700 text-2xl font-bold mb-5">
-                S/ 50
-              </p>
-
-              <button className="w-full bg-violet-700 hover:bg-violet-800 text-white py-4 rounded-2xl font-semibold text-lg transition">
-                Realizar Pedido
-              </button>
-            </div>
-          </div>
+        <div class="card-content">
+          <h2>Taza Personalizada</h2>
+          <p class="price">S/ 35</p>
+          <button>Realizar Pedido</button>
         </div>
-      </section>
+      </div>
 
-      {/* Formulario */}
-      <section className="w-[90%] max-w-2xl mx-auto bg-white rounded-3xl shadow-xl p-10 mb-16">
-        <h2 className="text-4xl font-bold text-center mb-8 text-gray-800">
-          🧾 Formulario de Pedido
-        </h2>
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=1200&auto=format&fit=crop" alt="Diploma Premium">
 
-        <div className="space-y-5">
-          <input
-            type="text"
-            placeholder="Nombre completo"
-            className="w-full border border-gray-300 rounded-2xl p-4 text-lg"
-          />
-
-          <input
-            type="text"
-            placeholder="DNI"
-            className="w-full border border-gray-300 rounded-2xl p-4 text-lg"
-          />
-
-          <input
-            type="text"
-            placeholder="Número de operación"
-            className="w-full border border-gray-300 rounded-2xl p-4 text-lg"
-          />
-
-          <input
-            type="number"
-            placeholder="Cantidad"
-            className="w-full border border-gray-300 rounded-2xl p-4 text-lg"
-          />
-
-          <button className="w-full bg-green-600 hover:bg-green-700 text-white py-4 rounded-2xl font-bold text-xl transition">
-            Enviar Pedido 🚀
-          </button>
+        <div class="card-content">
+          <h2>Diploma Premium</h2>
+          <p class="price">S/ 50</p>
+          <button>Realizar Pedido</button>
         </div>
-      </section>
+      </div>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white text-center py-6">
-        <p>© 2026 Diplomas Lalo - Todos los derechos reservados</p>
-      </footer>
     </div>
-  );
-}
+  </div>
+
+  <!-- Formulario -->
+  <section class="form-section">
+    <h2>🧾 Formulario de Pedido</h2>
+
+    <input type="text" placeholder="Nombre completo">
+    <input type="text" placeholder="DNI">
+    <input type="text" placeholder="Número de operación">
+    <input type="number" placeholder="Cantidad">
+
+    <button class="send-btn">Enviar Pedido 🚀</button>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Diplomas Lalo - Todos los derechos reservados</p>
+  </footer>
+
+</body>
+</html>
