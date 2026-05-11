@@ -1,397 +1,128 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PandaTech</title>
+import { useEffect, useState } from 'react';
 
-  <style>
-    * {margin:0;padding:0;box-sizing:border-box;font-family:'SF Pro Display', Arial, sans-serif;}
+export default function PromoStorePreview() {
+  const [loading, setLoading] = useState(true);
 
-    body {background:#fff;color:#000;}
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2500);
 
-    /* TOP BAR */
-    .topbar {
-      width:100%;
-      background:#87CEEB;
-      color:#fff;
-      text-align:center;
-      padding:10px 0;
-      position:relative;
-      font-size:14px;
+    if (loading) {
+    return (
+      <div className="h-screen w-full bg-white flex items-center justify-center">
+        <div className="flex flex-col items-center animate-pulse">
+          <img
+            src="https://scontent.flim38-1.fna.fbcdn.net/v/t39.30808-6/305291497_458834266287777_8277300411850734890_n.jpg"
+            alt="Diplomas Lalo"
+            className="w-72 object-contain shadow-2xl"
+          />
+
+          <h1 className="mt-6 text-4xl font-bold text-violet-700">
+            Diplomas Lalo
+          </h1>
+        </div>
+      </div>
+    );
+  }
+
+  return () => clearTimeout(timer);
+  }, []);
+  const products = [
+    {
+      name: 'Cuadro Promocional',
+      price: 'S/ 80',
+      image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1200&auto=format&fit=crop'
+    },
+    {
+      name: 'Taza Personalizada',
+      price: 'S/ 35',
+      image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop'
+    },
+    {
+      name: 'Diploma Premium',
+      price: 'S/ 50',
+      image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=1200&auto=format&fit=crop'
     }
+  ];
 
-    .topbar .arrow {
-      position:absolute;
-      top:50%;
-      transform:translateY(-50%);
-      font-size:18px;
-      cursor:pointer;
-    }
+  return (
+    <div className="min-h-screen bg-gray-100 font-sans">
+      <header className="bg-violet-600 text-white py-10 shadow-lg">
+        <div className="max-w-6xl mx-auto px-6 text-center">
+          <h1 className="text-5xl font-bold mb-3">🎓 Recuerdos de Promoción</h1>
+          <p className="text-lg opacity-90">
+            Compra recuerdos personalizados para promociones escolares y universitarias
+          </p>
+        </div>
+      </header>
 
-    .arrow.left {left:15px;}
-    .arrow.right {right:15px;}
+      <section className="max-w-6xl mx-auto px-6 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {products.map((product, index) => (
+            <div
+              key={index}
+              className="bg-white rounded-3xl overflow-hidden shadow-xl hover:scale-105 transition duration-300"
+            >
+              <img
+                src={product.image}
+                alt={product.name}
+                className="w-full h-72 object-cover"
+              />
 
-    /* HEADER */
-    .main-header {
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:0 40px;
-      height:80px;
-      background:#fff;
-      border-bottom:1px solid #eee;
-    }
+              <div className="p-6">
+                <h2 className="text-2xl font-bold text-gray-800 mb-2">
+                  {product.name}
+                </h2>
 
-    .logo {
-      font-weight:700;
-      font-size:22px;
-    }
+                <p className="text-violet-600 text-xl font-semibold mb-5">
+                  {product.price}
+                </p>
 
-    .badge {
-      border:1px solid #000;
-      border-radius:20px;
-      padding:3px 10px;
-      font-size:12px;
-      margin-left:10px;
-    }
+                <button className="w-full bg-violet-600 hover:bg-violet-700 text-white py-3 rounded-2xl font-semibold text-lg transition">
+                  Realizar Pedido
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
 
-    .left {
-      display:flex;
-      align-items:center;
-    }
+      <section className="max-w-3xl mx-auto bg-white rounded-3xl shadow-xl p-8 mb-16">
+        <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">
+          🧾 Formulario de Pedido
+        </h2>
 
-    .search {
-      flex:1;
-      margin:0 40px;
-    }
+        <div className="space-y-5">
+          <input
+            type="text"
+            placeholder="Nombre completo"
+            className="w-full border border-gray-300 rounded-2xl p-4 text-lg"
+          />
 
-    .search input {
-      width:100%;
-      padding:12px 20px;
-      border-radius:50px;
-      border:none;
-      background:#F5F5F5;
-      outline:none;
-    }
+          <input
+            type="text"
+            placeholder="DNI"
+            className="w-full border border-gray-300 rounded-2xl p-4 text-lg"
+          />
 
-    .right {
-      display:flex;
-      align-items:center;
-      gap:20px;
-      font-size:14px;
-    }
+          <input
+            type="text"
+            placeholder="Número de operación"
+            className="w-full border border-gray-300 rounded-2xl p-4 text-lg"
+          />
 
-    /* NAV */
-    .nav {
-      display:flex;
-      justify-content:center;
-      gap:25px;
-      padding:15px 20px;
-      border-bottom:1px solid #eee;
-      flex-wrap:wrap;
-    }
+          <input
+            type="number"
+            placeholder="Cantidad"
+            className="w-full border border-gray-300 rounded-2xl p-4 text-lg"
+          />
 
-    .nav a {
-      text-decoration:none;
-      color:#000;
-      font-size:14px;
-      transition:.3s;
-    }
-
-    .nav a:hover {
-      color:#007AFF;
-    }
-
-    /* RESPONSIVE */
-    @media(max-width:900px){
-      .search {display:none;}
-      .nav {gap:15px;font-size:12px;}
-    }
-  </style>
-</head>
-
-<body>
-
-<!-- TOP BAR -->
-<div class="topbar">
-  <span class="arrow left">&lt;</span>
-  Tu graduación empieza ahora 🎓 Adquiere el Catálogo 2026 y asegura todo lo que necesitas para tu gran día.
-  <span class="arrow right">&gt;</span>
-</div>
-
-<!-- HEADER -->
-<div class="main-header">
-
-  <div class="left">
-    <div class="logo">Diplomas Lalo</div>
-    <div class="badge">Líder en Recuerdos de Graduación</div>
-  </div>
-
-  <div class="search">
-    <input type="text" placeholder="¿Qué estás buscando?">
-  </div>
-
-  <div class="right">
-    <span>Catálogo virtual</span>
-    <span>Perú ▾</span>
-    <img src="https://cdn-icons-png.flaticon.com/512/1077/1077114.png" style="width:20px; cursor:pointer;">
-    <img src="https://cdn-icons-png.flaticon.com/512/263/263142.png" style="width:22px; cursor:pointer;">
-  </div>
-
-</div>
-
-<!-- NAV -->
-<div class="nav">
-  <a href="#">Biomadera</a>
-  <a href="#">Superbiomadera</a>
-  <a href="#">Brillante</a>
-  <a href="#">Elegancia</a>
-  <a href="#">|</a>
-  <a href="#">Nuestras Tiendas</a>
-  <a href="#">Reclamos</a>
-  <a href="#">Ventas Corporativas</a>
-</div>
-
-
-
-
-
-<!-- SLIDER / CAROUSEL -->
-<section class="carousel-section">
-  <div class="carousel" id="carousel">
-    <div class="carousel-track" id="carouselTrack">
-      <!-- Reemplaza estas URLs por tus imágenes -->
-      <div class="slide"><img src="https://via.placeholder.com/1920x500/333/FFFFFF?text=Banner+1" alt="Banner 1"></div>
-      <div class="slide"><img src="https://via.placeholder.com/1920x500/87CEEB/FFFFFF?text=Banner+2" alt="Banner 2"></div>
-      <div class="slide"><img src="https://via.placeholder.com/1920x500/FF6B00/FFFFFF?text=Banner+3" alt="Banner 3"></div>
-      <div class="slide"><img src="https://via.placeholder.com/1920x500/0033A0/FFFFFF?text=Banner+4" alt="Banner 4"></div>
+          <button className="w-full bg-green-600 hover:bg-green-700 text-white py-4 rounded-2xl font-bold text-xl transition">
+            Enviar Pedido 🚀
+          </button>
+        </div>
+      </section>
     </div>
-  </div>
-
-  <!-- Indicadores -->
-  <div class="dots-wrapper">
-    <div class="dots" id="dots">
-      <span class="dot active" data-index="0"></span>
-      <span class="dot" data-index="1"></span>
-      <span class="dot" data-index="2"></span>
-      <span class="dot" data-index="3"></span>
-    </div>
-  
-    <!-- NUEVOS 3 PRODUCTOS -->
-    
-
-    
-
-    
-
-  </div>
-</section>
-
-<style>
-.carousel-section {width:100%; background:#fff;}
-.carousel {width:100%; height:500px; overflow:hidden;}
-.carousel-track {display:flex; height:100%; transition:transform 0.6s ease-in-out;}
-.slide {min-width:100%; height:100%;}
-.slide img {width:100%; height:100%; object-fit:cover;}
-
-/* Indicadores */
-.dots-wrapper {display:flex; justify-content:center; margin-top:15px;}
-.dots {background:#fff; padding:12px 20px; border-radius:50px; box-shadow:0 4px 10px rgba(0,0,0,0.08);}
-.dot {display:inline-block; width:10px; height:10px; margin:0 5px; border-radius:50%; background:#CCC; cursor:pointer;}
-.dot.active {background:#333;}
-
-/* Responsive */
-@media(max-width:768px){
-  .carousel {height:300px;}
+  );
 }
-</style>
-
-<script>
-const track = document.getElementById('carouselTrack');
-const dots = document.querySelectorAll('.dot');
-let index = 0;
-let interval;
-
-function updateSlider(i){
-  index = i;
-  track.style.transform = `translateX(-${index * 100}%)`;
-  dots.forEach(dot => dot.classList.remove('active'));
-  dots[index].classList.add('active');
-}
-
-function startAutoplay(){
-  interval = setInterval(()=>{
-    index = (index + 1) % 4;
-    updateSlider(index);
-  },4000);
-}
-
-function resetAutoplay(){
-  clearInterval(interval);
-  startAutoplay();
-}
-
-// Click en dots
-dots.forEach(dot =>{
-  dot.addEventListener('click', ()=>{
-    updateSlider(parseInt(dot.dataset.index));
-    resetAutoplay();
-  });
-});
-
-startAutoplay();
-</script>
-
-<!-- CATEGORÍAS -->
-<section style="padding:70px 20px 40px; max-width:1200px; margin:auto;">
-  <h2 style="font-size:32px; font-weight:600; margin-bottom:60px;">Ver todos los productos de Lalo.</h2>
-
-  <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:50px; justify-items:center; max-width:800px; margin:20px auto 0;">
-
-    <div style="text-align:center;"><img src="https://via.placeholder.com/80" style="width:80px;height:80px;object-fit:contain;"><p><strong>Biomadera</strong></p><p style="color:#666;font-size:14px;">Desde S/ 69</p></div>
-    <div style="text-align:center;"><img src="https://via.placeholder.com/80" style="width:80px;height:80px;object-fit:contain;"><p><strong>Superbiomadera</strong></p><p style="color:#666;font-size:14px;">Desde S/ 99</p></div>
-    <div style="text-align:center;"><img src="https://via.placeholder.com/80" style="width:80px;height:80px;object-fit:contain;"><p><strong>Brillante</strong></p><p style="color:#666;font-size:14px;">Desde S/ 129</p></div>
-    <div style="text-align:center;"><img src="https://via.placeholder.com/80" style="width:80px;height:80px;object-fit:contain;"><p><strong>Elegancia</strong></p><p style="color:#666;font-size:14px;">Desde S/ 199</p></div>
-
-  </div>
-</section>
-
-<!-- NOVEDADES -->
-<section class="novedades">
-  <h2>Echa un vistazo a las novedades.</h2>
-
-  <div class="novedades-scroll">
-
-    <!-- 10 PRODUCTOS (4 originales + 6 nuevos) -->
-
-    <div class="card-nuevo">
-      <img src="https://via.placeholder.com/300x200">
-      <div class="tags"><span class="nuevo">NUEVO</span><span class="estado azul">YA DISPONIBLE</span></div>
-      <h3>Brillante Sinterizado Negro</h3>
-    </div>
-
-    <!-- 6 NUEVOS -->
-    <div class="card-nuevo">
-      <img src="https://via.placeholder.com/300x200">
-      <div class="tags"><span class="nuevo">NUEVO</span><span class="estado azul">YA DISPONIBLE</span></div>
-      <h3>Brillante Rosado Perlado</h3>
-      <p class="precio">Desde S/ 69</p>
-    </div>
-
-    <div class="card-nuevo">
-      <img src="https://via.placeholder.com/300x200">
-      <div class="tags"><span class="nuevo">NUEVO</span><span class="estado azul">YA DISPONIBLE</span></div>
-      <h3>Brillante Lila Princesa</h3>
-      <p class="precio">Desde S/ 129</p>
-    </div>
-
-    <div class="card-nuevo">
-      <img src="https://via.placeholder.com/300x200">
-      <div class="tags"><span class="nuevo">NUEVO</span><span class="estado azul">YA DISPONIBLE</span></div>
-      <h3>Brillante Textura Cuero Azul</h3>
-      <p class="precio">Desde S/ 199</p>
-    </div>
-
-    <div class="card-nuevo">
-      <img src="https://via.placeholder.com/300x200">
-      <div class="tags"><span class="nuevo">NUEVO</span><span class="estado azul">YA DISPONIBLE</span></div>
-      <h3>Brillante Sinterizado Blanco</h3>
-      <p class="precio">Desde S/ 249</p>
-    </div>
-
-    <div class="card-nuevo">
-      <img src="https://via.placeholder.com/300x200">
-      <div class="tags"><span class="nuevo">NUEVO</span><span class="estado azul">YA DISPONIBLE</span></div>
-      <h3>Brillante Azul Acero</h3>
-      <p class="precio">Desde S/ 99</p>
-    </div>
-
-    <div class="card-nuevo">
-      <img src="https://via.placeholder.com/300x200">
-      <div class="tags"><span class="nuevo">NUEVO</span><span class="estado azul">YA DISPONIBLE</span></div>
-      <h3>Brillante Azul Principe</h3>
-      <p class="precio">Desde S/ 149</p>
-    </div>
-
-  </div>
-</section>
-
-<style>
-.novedades {padding:80px 20px; max-width:1200px; margin:auto; font-family:-apple-system, Arial, sans-serif;}
-.novedades h2 {font-size:32px; margin-bottom:30px; color:#1d1d1f;}
-
-/* SCROLL HORIZONTAL */
-.novedades-scroll {
-  display:flex;
-  gap:20px;
-  overflow-x:auto;
-  scroll-behavior:smooth;
-  padding-bottom:10px;
-}
-
-.novedades-scroll::-webkit-scrollbar {height:8px;}
-.novedades-scroll::-webkit-scrollbar-thumb {background:#ccc; border-radius:10px;}
-
-.card-nuevo {
-  min-width:260px;
-  background:#fff;
-  border-radius:18px;
-  padding:20px;
-  box-shadow:0 4px 10px rgba(0,0,0,0.06);
-  transition:.3s;
-}
-
-.card-nuevo:hover {
-  transform:scale(1.02);
-  box-shadow:0 10px 25px rgba(0,0,0,0.12);
-}
-
-.card-nuevo img {width:100%; height:160px; object-fit:contain; margin-bottom:10px;}
-.tags {font-size:12px; margin-bottom:8px;}
-.nuevo {color:#ff3b30; margin-right:5px; font-weight:600;}
-.estado.gris {color:#6e6e73;}
-.estado.azul {color:#0071e3;}
-.card-nuevo h3 {font-size:16px; color:#1d1d1f; margin-bottom:5px;}
-.desc {margin-bottom:8px;}
-.precio {color:#6e6e73; font-size:14px;}
-</style>
-
-<!-- REVIEWS -->
-<section style="margin-top:140px; padding:0 50px;">
-  <h2 style="text-align:center; margin-bottom:30px;">Opiniones de clientes</h2>
-
-  <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:25px;">
-
-    <div style="border:1px solid #eee;padding:30px;border-radius:15px;min-height:220px;display:flex;flex-direction:column;justify-content:space-between;position:relative;text-align:center;">
-      <div style="position:absolute;top:15px;right:20px;">★★★★★</div>
-      <p style="margin:auto 0;">Excelente servicio, mi iPhone llegó rápido y sellado.</p>
-      <strong style="text-align:right;">- Carlos M.</strong>
-    </div>
-
-    <div style="border:1px solid #eee;padding:30px;border-radius:15px;min-height:220px;display:flex;flex-direction:column;justify-content:space-between;position:relative;text-align:center;">
-      <div style="position:absolute;top:15px;right:20px;">★★★★★</div>
-      <p style="margin:auto 0;">Muy confiables, atención rápida y productos originales.</p>
-      <strong style="text-align:right;">- Andrea R.</strong>
-    </div>
-
-    <div style="border:1px solid #eee;padding:30px;border-radius:15px;min-height:220px;display:flex;flex-direction:column;justify-content:space-between;position:relative;text-align:center;">
-      <div style="position:absolute;top:15px;right:20px;">★★★★★</div>
-      <p style="margin:auto 0;">Entrega puntual y excelente calidad, recomendado.</p>
-      <strong style="text-align:right;">- Luis F.</strong>
-    </div>
-
-  </div>
-</section>
-
-<!-- WHATSAPP -->
-<a href="https://wa.me/51940265054" style="position:fixed;bottom:20px;right:20px;background:#000;color:#fff;padding:14px 20px;border-radius:30px;text-decoration:none;">WhatsApp</a>
-
-<!-- FOOTER -->
-<footer style="margin-top:60px;border-top:1px solid #eee;padding:40px 50px;display:flex;justify-content:space-between;">
-  <div>© 2026 Diplomas Lalo</div>
-  <div>pandatechcontact@pandatech.pe</div>
-</footer>
-
-</body>
-</html>
